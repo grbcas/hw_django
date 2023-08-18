@@ -48,7 +48,7 @@
                 </div>
                 <div class="card-body">
 <!--                    forma -->
-                    <form method="post" action="" class="form-floating">
+                    <form method="post" >
                         {% csrf_token %}
                         <div class="mb-3">
                             <label for="name">Имя</label><br>
@@ -60,13 +60,10 @@
                         </div>
                         <div class="mb-3">
                             <label for="message">Сообщение</label><br>
-                            <textarea type="text" name="message" class="form-control" id="message" placeholder="message" required></textarea>
+                            <textarea name="message" class="form-control" id="message" placeholder="message" required></textarea>
                         </div>
-
-
+                        <input type="submit" value="Отправить" />
                     </form>
-                    <input type="submit" value="Отправить" />
-<!--                    <button type="submit" class="btn">Отправить</button>-->
                 </div>
             </div>
         </div>
