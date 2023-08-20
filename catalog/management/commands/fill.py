@@ -1,29 +1,34 @@
-import datetime
-
+import json
+from pathlib import Path
 from django.core.management import BaseCommand
-
 from catalog.models import Product
+
+
+PATH = Path(__file__).parent.parent.parent.parent.joinpath('data.json')
 
 
 class Command(BaseCommand):
 
+    @staticmethod
+    def load_json() -> list:
+        """
+        load data from fixture dumpdata
+        :return: list
+        """
+        with open(PATH, 'r', encoding='cp1251') as f:
+            dump_data = json.load(f)
+            return dump_data
+
     def handle(self, *args, **options):
-        print('truncate db')
-        Product.objects.all().delete()
-
-        products_list = [
-            {'id': 5,
-            'name': 'продукт-3',
-            'category_id': 3,
-            'description': 'продукт-3 Описание',
-            'image': '6_factorial.drawio_XyqOlfo.png',
-            'price': 3,
-            'create_date': datetime.datetime(2023, 8, 20, 18, 18, 36, tzinfo=datetime.timezone.utc),
-            'modify_date': datetime.datetime(2023, 8, 20, 18, 18, 43, tzinfo=datetime.timezone.utc)},
-        ]
-
+        """
+        fill data into db
+        :param args:
+        :param options:
+        :return:
+        """
+        print('fill data from fixture dumpdata')
         products_to_db = []
-        for i_product in products_list:
+        for i_product in self.load_json():
             products_to_db.append(
                 Product(**i_product)
             )
