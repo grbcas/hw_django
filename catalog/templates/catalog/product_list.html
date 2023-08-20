@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+  <ul>
+    {% for product in products %}
+      <li>
+        <h4>{{ product.name }}</h4>
+        {% endfor %} {% endcomment %}
+        <p>{{ product.category.name }}</p>
+        <a href="{{ product.get_absolute_url }}">подробнее</a>
+        {% comment %} <p>{{ product.text }}</p>   {% endcomment %}
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

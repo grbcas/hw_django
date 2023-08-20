@@ -1,0 +1,25 @@
+In [1]: from catalog.models import Product
+
+In [2]: Product.objects.all()
+Out[2]: <QuerySet [<Product: 3 продукт-1 1 (3, 'категория-1')>, <Product: 4 продукт-2 2 (4, 'категория-2')>]>
+
+In [3]: from catalog.models import Category
+In [4]: Category.objects.create(name='категория-3', description='категория-3 описание')
+Out[4]: <Category: (5, 'категория-3')>
+In [5]: Category.objects.get(pk=4)
+Out[5]: <Category: (4, 'категория-2')>
+
+In [6]: Category.objects.get(pk=5)
+Out[6]: <Category: (5, 'категория-3')>
+In [7]: Category.objects.get(pk=5).__dict__
+Out[7]:
+{'_state': <django.db.models.base.ModelState at 0x170b14f5690>,
+ 'id': 5,
+ 'name': 'категория-3',
+ 'description': 'категория-3 описание'}
+
+# fixtura
+(hw-django-py3.11) C:\Users\grbca\PycharmProjects\hw_django>python manage.py dumpdata > data.json
+
+(hw-django-py3.11) C:\Users\grbca\PycharmProjects\hw_django>python manage.py dumpdata catalog > data.json
+
