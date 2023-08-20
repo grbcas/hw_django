@@ -17,7 +17,7 @@ def index(request):
 
 def contacts(request):
     context = {
-        'contact_data': Contacts.objects.get(pk=1),
+        'contacts': Contacts.objects.get(pk=1),
     }
     if request.method == 'POST':
         name = request.POST.get('name')
