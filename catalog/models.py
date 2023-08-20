@@ -51,7 +51,7 @@ class Product(models.Model):
         help_text='max 100 chars'
     )
     description = models.TextField(max_length=200, verbose_name='описание')
-    image = models.ImageField(verbose_name='изображение')
+    image = models.ImageField(upload_to='products/', verbose_name='изображение', **NULLABLE)
     price = models.IntegerField(verbose_name='цена')
     create_date = models.DateTimeField(verbose_name='дата создания')
     modify_date = models.DateTimeField(verbose_name='дата изменения')
@@ -63,3 +63,15 @@ class Product(models.Model):
 
     def __str__(self):
         return f'{self.pk} {self.name} {self.price} {self.category}'
+
+
+class Contacts(models.Model):
+    name = models.CharField(max_length=100, verbose_name='название')
+
+    class Meta:
+        verbose_name = 'название'
+        verbose_name_plural = 'названия'
+        ordering = ('name',)
+
+    def __str__(self):
+        return f'{self.pk} {self.name}'
