@@ -126,7 +126,7 @@ STATIC_URL = 'static/'
 
 # Отвечает за место на диске, откуда необходимо подгружать статику
 STATICFILES_DIRS = (
-    BASE_DIR / 'catalog/static',
+    BASE_DIR / 'static',
 )
 
 # Default primary key field type

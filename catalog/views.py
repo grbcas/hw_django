@@ -9,15 +9,25 @@ from django.views.generic import TemplateView, ListView, CreateView, DetailView,
 COUNT_LATEST_PRODUCTS = 5
 
 
+# def index(request):
+#     queryset = Product.objects.all()
+#     print(queryset)
+#     return render(request, 'catalog/index.html', context={'queryset': queryset})
+#     # return render(request, 'catalog/index.html')
+
 def index(request):
-    queryset = Product.objects.values()
-    print(queryset)
-    return render(request, 'catalog/index.html')
+    product_list = Product.objects.all()
+    context = {
+        'object_list': product_list,
+        'title': 'home'
+    }
+    return render(request, 'catalog/index.html', context)
 
 
 def contacts(request):
     context = {
         'contacts': Contacts.objects.get(pk=1),
+        'title': 'contacts'
     }
     if request.method == 'POST':
         name = request.POST.get('name')
