@@ -10,11 +10,11 @@ register = template.Library()
 def mediapath(object: models.Model) -> str:
     """Шаблонный тег для построения пути к медиафайлам приложения"""
 
-    object_image = Product.image
-    print('register.simple_tag', object_image)
-    if object_image:
-        return f'{settings.MEDIA_URL}/{object_image}'
-    return f'{settings.MEDIA_URL}/default.png'
+    print('register.simple_tag', hasattr(object, 'image'))
+    if hasattr(object, 'image'):
+        print(settings.MEDIA_URL)
+        return f'{settings.MEDIA_URL}/{object}'
+    return f'{settings.MEDIA_URL}default.png'
 
 
 @register.filter
@@ -24,4 +24,4 @@ def mediapath(object: models.Model) -> str:
     object_image = Product.image
     if object_image:
         return f'{settings.MEDIA_URL}/{object_image}'
-    return f'{settings.MEDIA_URL}/default.png'
+    return f'{settings.MEDIA_URL}default.png'
