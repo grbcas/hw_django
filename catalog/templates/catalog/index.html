@@ -4,8 +4,9 @@
 {% for object in object_list %}
 <div class="col-md-4">
     <div class="card mb-4 box-shadow">
-        <img src="{% mediapath product.image %}" class="img-fluid" alt="Изображение продукта">
+        <img src="{% mediapath object %}" class="img-fluid" alt="Изображение продукта">
         <div class="card-body">
+            <p class="card-text">{% mediapath object %}</p>
             <p class="card-text">{{ object.name|title }}</p>
             {% if object.url == '' %} !!!!!!!!! {% endif %}
             <div class="d-flex justify-content-between align-items-center">
