@@ -1,7 +1,6 @@
 from django import template
 from django.db import models
 from config import settings
-from catalog.models import Product
 
 register = template.Library()
 
