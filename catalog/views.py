@@ -9,12 +9,6 @@ from django.views.generic import TemplateView, ListView, CreateView, DetailView,
 COUNT_LATEST_PRODUCTS = 5
 
 
-# def index(request):
-#     queryset = Product.objects.all()
-#     print(queryset)
-#     return render(request, 'catalog/index.html', context={'queryset': queryset})
-#     # return render(request, 'catalog/index.html')
-
 def index(request):
     product_list = Product.objects.all()
     context = {

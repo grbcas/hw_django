@@ -4,7 +4,7 @@
 {% for object in object_list %}
 <div class="col-md-4">
     <div class="card mb-4 box-shadow">
-        <img class="pet-image img-fluid" src="{% mediapath product %}" alt="Generic placeholder image">
+        <img src="{% mediapath product.image %}" class="img-fluid" alt="Изображение продукта">
         <div class="card-body">
             <p class="card-text">{{ object.name|title }}</p>
             {% if object.url == '' %} !!!!!!!!! {% endif %}

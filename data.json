@@ -1,0 +1,72 @@
+[
+  {
+    "model": "catalog.student",
+    "pk": 7,
+    "fields": {
+      "first_name": "a",
+      "last_name": "aaa",
+      "avatar": "",
+      "is_active": true
+    }
+  },
+  {
+    "model": "catalog.student",
+    "pk": 8,
+    "fields": {
+      "first_name": "b",
+      "last_name": "bb",
+      "avatar": "",
+      "is_active": true
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 3,
+    "fields": {
+      "name": "категория-1",
+      "description": "категория-1 описание"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 4,
+    "fields": {
+      "name": "категория-2",
+      "description": "категория-2 описание"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 5,
+    "fields": {
+      "name": "категория-3",
+      "description": "категория-3 описание"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 3,
+    "fields": {
+      "name": "продукт-1",
+      "category": 3,
+      "description": "продукт-1 Описание",
+      "image": "6_factorial.drawio_XyqOlfo.png",
+      "price": 1,
+      "create_date": "2023-08-20T18:18:36Z",
+      "modify_date": "2023-08-20T18:18:43Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 4,
+    "fields": {
+      "name": "продукт-2",
+      "category": 4,
+      "description": "продукт-2 Описание",
+      "image": "3_arithmetic_mean.drawio_6Qg9twi.png",
+      "price": 2,
+      "create_date": "2023-08-20T18:19:16Z",
+      "modify_date": "2023-08-20T18:19:17Z"
+    }
+  }
+]

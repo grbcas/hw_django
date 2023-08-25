@@ -63,7 +63,8 @@ class Product(models.Model):
     image = models.ImageField(
         upload_to='products/',
         verbose_name='изображение',
-        default='products/default.png'
+        default='products/default.png',
+        **NULLABLE
     )
     price = models.IntegerField(
         verbose_name='цена'
