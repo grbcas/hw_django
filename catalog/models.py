@@ -1,8 +1,6 @@
-from django.db import models
-
 # Create your models here.
 from django.db import models
-
+from django.utils import timezone
 
 NULLABLE = {'null': True, 'blank': True}
 
@@ -18,7 +16,6 @@ class Category(models.Model):
         max_length=200,
         verbose_name='описание'
     )
-    # created_at = models.CharField(max_length=100, verbose_name='created_at', **NULLABLE)
 
     class Meta:
         verbose_name = 'Категория'
@@ -26,7 +23,7 @@ class Category(models.Model):
         ordering = ('name',)
 
     def __str__(self):
-        return f'{self.pk, self.name}'
+        return f'{self.name}'
 
 
 class Product(models.Model):
@@ -46,20 +43,35 @@ class Product(models.Model):
         verbose_name='описание'
     )
     image = models.ImageField(
+        default='default.png',
         upload_to='products/',
         verbose_name='изображение',
-        default='products/default.png',
-        **NULLABLE
     )
     price = models.IntegerField(
         verbose_name='цена'
     )
     create_date = models.DateTimeField(
+        default=timezone.now,
         verbose_name='дата создания'
     )
     modify_date = models.DateTimeField(
+        default=timezone.now,
         verbose_name='дата изменения'
     )
+    is_published = models.BooleanField(
+        default=False,
+        verbose_name='Опубликовано'
+        )
+    count_views = models.PositiveIntegerField(
+        default=0,
+        verbose_name='Количество просмотров'
+        )
+    slug = models.SlugField(
+        max_length=150,
+        unique=True,
+        verbose_name='slug',
+        **NULLABLE
+        )
 
     class Meta:
         verbose_name = 'Продукт'
@@ -67,7 +79,7 @@ class Product(models.Model):
         ordering = ('name',)
 
     def __str__(self):
-        return f'{self.pk} {self.name} {self.price} {self.category}'
+        return f'{self.pk} {self.name} {self.price} {self.category} {self.is_published}'
 
 
 class Contacts(models.Model):

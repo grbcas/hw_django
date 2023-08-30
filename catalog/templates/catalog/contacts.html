@@ -19,8 +19,10 @@
                                 {% csrf_token %}
                                 <input type="text" name="name" class="form-control mb-2" id="name" placeholder="Ваше имя"
                                        required>
-                                <input type="text" name="phone" class="form-control mb-2" id="phone"
-                                       placeholder="Контактный телефон" required>
+                                <input type="text" name="email" class="form-control mb-2" id="email"
+                                       placeholder="Адрес почты" required>
+                                <input type="text" name="message" class="form-control mb-2" id="message"
+                                       placeholder="Текст сообщения" required>
                                 <button type="submit" class="btn btn-primary form-control mb-2">Отправить</button>
                             </form>
                         </div>

@@ -1,24 +1,56 @@
 {% extends 'catalog/base.html' %}
+{% load catalog_custom_tags %}
 {% block content %}
-{% load custom_tags %}
-{% for object in object_list %}
-<div class="col-md-4">
-    <div class="card mb-4 box-shadow">
-        <img src="{% mediapath object %}" class="img-fluid" alt="Изображение продукта">
-        <div class="card-body">
-            <p class="card-text">{% mediapath object %}</p>
-            <p class="card-text">{{ object.name|title }}</p>
-            {% if object.url == '' %} !!!!!!!!! {% endif %}
-            <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group ">
-                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                </div>
-                <small class="text-muted">{{ object.modify_date }}</small>
-            </div>
+<div class="container marketing">
+    <!-- Three columns of text below the carousel -->
+    <div class="row">
+        {% for category in category_list %}
+        <div class="col-lg-4">
+            <img class="rounded-circle" src="{{ category|mediapath }}" alt="Generic placeholder image" width="140"
+                 height="140">
+            <h2>{{ category.name }}</h2>
+            <p>{{ category.description }}</p>
+            <p><a class="btn btn-secondary" href="{% url 'catalog:category' category.pk %}" role="button">Детали&raquo;</a></p>
+        </div><!-- /.col-lg-4 -->
+        {% if forloop.counter == 3 %}
+    </div> <!-- Closing the row after the third category -->
+    <div class="row justify-content-center"> <!-- Starting a new row for the remaining categories -->
+        {% endif %}
+        {% endfor %}
+    </div><!-- /.row -->
 
+        <!-- START THE FEATURETTES -->
+{% for product in product_list %}
+    <hr class="featurette-divider">
+
+    <div class="row featurette">
+        {% if forloop.counter|divisibleby:2 %}
+        <div class="col-md-7">
+            <h2 class="featurette-heading">{{ product.name }}</h2>
+            <p class="lead">{{ product.description|truncatechars:1000 }}</p>
+            <div class="button-center">
+                <a href="{% url 'catalog:product' product.pk %}" class="btn btn-primary btn-centered btn-lg">Осмотреть</a>
+            </div>
         </div>
+        <div class="col-md-5">
+            <img class="featurette-image img-fluid" src="{% mediapath product %}" alt="Generic placeholder image">
+        </div>
+        {% else %}
+        <div class="col-md-7 order-md-2">
+            <h2 class="featurette-heading">{{ product.name }}</h2>
+            <p class="lead">{{ product.description|truncatechars:1000 }}</p>
+            <div class="button-center text-end">
+                <a href="{% url 'catalog:product' product.pk %}" class="btn btn-primary btn-centered btn-lg">Осмотреть</a>
+            </div>
+        </div>
+        <div class="col-md-5 order-md-1">
+            <img class="featurette-image img-fluid" src="{% mediapath product %}" alt="Generic placeholder image">
+        </div>
+        {% endif %}
     </div>
-</div>
-{% endfor %}
+    {% endfor %}
+<hr class="featurette-divider">
+        <!-- /END THE FEATURETTES -->
+
+      </div><!-- /.container -->
 {% endblock %}

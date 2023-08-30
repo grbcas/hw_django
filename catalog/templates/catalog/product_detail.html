@@ -1,0 +1,25 @@
+{% extends 'catalog/base.html' %}
+{% block content %}
+{% load custom_tags %}
+
+<div class="col-md-4">
+    <div class="card mb-4 box-shadow">
+        <img src="{% mediapath object %}" class="img-fluid" alt="Изображение продукта">
+        <div class="card-body">
+            <p class="card-text">{% mediapath object %}</p>
+            <p class="card-text">{{ object.name|title }}</p>
+            {% if object.url == '' %} !!!!!!!!! {% endif %}
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group ">
+                    <a href="{% url 'catalog:edit' object.pk %}" type="button" class="btn btn-sm btn-outline-secondary">Edit</a>
+
+                    <button type="button" class="btn btn-sm btn-outline-secondary">Delete</button>
+                </div>
+                <small class="text-muted col-md-6">{{ object.modify_date }}</small>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
