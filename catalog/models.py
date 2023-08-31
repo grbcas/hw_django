@@ -43,12 +43,14 @@ class Product(models.Model):
         verbose_name='описание'
     )
     image = models.ImageField(
-        default='default.png',
         upload_to='products/',
         verbose_name='изображение',
+        **NULLABLE
     )
-    price = models.IntegerField(
-        verbose_name='цена'
+    price = models.DecimalField(
+        verbose_name='цена',
+        max_digits=8,
+        decimal_places=2
     )
     create_date = models.DateTimeField(
         default=timezone.now,
@@ -60,7 +62,7 @@ class Product(models.Model):
     )
     is_published = models.BooleanField(
         default=False,
-        verbose_name='Опубликовано'
+        verbose_name='Отображать'
         )
     count_views = models.PositiveIntegerField(
         default=0,

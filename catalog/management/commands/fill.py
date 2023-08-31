@@ -29,8 +29,6 @@ class Command(BaseCommand):
         print('fill data from fixture dumpdata')
         products_to_db = []
         for i_product in self.load_json():
-            products_to_db.append(
-                Product(**i_product)
-            )
+            products_to_db.append(Product(**i_product))
 
         Product.objects.bulk_create(products_to_db)
