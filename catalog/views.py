@@ -70,9 +70,6 @@ class ProductUpdateView(UpdateView):
 
         return super().form_valid(form)
 
-    # def get_success_url(self):
-    #     return reverse('catalog:view', args=[self.kwargs.get('pk')])
-
 
 class ProductDeleteView(DeleteView):
     model = Product

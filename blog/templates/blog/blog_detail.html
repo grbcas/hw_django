@@ -1,0 +1,12 @@
+{% extends 'catalog/base.html' %}
+{% block content %}
+{% load custom_tags %}
+<div>
+  <h1>blog detail view</h1>
+  <h2>{{ object }}</h2>
+  <p>{{ object.body }}</p>
+  {% load custom_tags %}
+  <img src="object.image">
+  <p>{{ object.view_count }}</p>
+</div>
+{% endblock%}

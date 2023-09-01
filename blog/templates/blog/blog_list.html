@@ -1,0 +1,28 @@
+{% extends 'catalog/base.html' %}
+{% block content %}
+{% load custom_tags %}
+{% for object in object_list %}
+<div class="col-6">
+    <div class="card mb-4 box-shadow">
+        <img src="{% mediapath object %}" class="img-fluid" alt="Изображение">
+        <div class="card-body">
+            <p class="card-text">slug: {{ object.slug }}</p>
+            <p class="card-text">{{ object.title|title }}</p>
+            <div class="d-flex justify-content-between align-items-center">
+
+                    <a href="{% url 'blog:view' object.pk %}" type="button"
+                       class="btn btn-sm btn-outline-secondary">View</a>
+
+                    <a href="{% url 'blog:edit' object.pk %}" type="button"
+                       class="btn btn-sm btn-outline-secondary">Edit</a>
+
+                    <a href="{% url 'blog:delete' object.pk %}" type="button"
+                       class="btn btn-danger btn-outline-secondary">Delete</a>
+
+                <small class="text-muted col-md-6">{{ object.modify_date }}</small>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
