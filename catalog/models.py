@@ -30,7 +30,8 @@ class Product(models.Model):
     name = models.CharField(
         'наименование',
         max_length=100,
-        help_text='max 100 chars'
+        help_text='max 100 chars',
+        unique=True
     )
     category = models.ForeignKey(
         Category,
@@ -61,7 +62,7 @@ class Product(models.Model):
         verbose_name='дата изменения'
     )
     is_published = models.BooleanField(
-        default=False,
+        default=True,
         verbose_name='Отображать'
         )
     count_views = models.PositiveIntegerField(
@@ -75,13 +76,13 @@ class Product(models.Model):
         **NULLABLE
         )
 
+    def __str__(self):
+        return f'{self.pk} {self.name} {self.price} {self.category} {self.is_published}'
+
     class Meta:
         verbose_name = 'Продукт'
         verbose_name_plural = 'Продукты'
         ordering = ('name',)
-
-    def __str__(self):
-        return f'{self.pk} {self.name} {self.price} {self.category} {self.is_published}'
 
 
 class Contacts(models.Model):
@@ -90,10 +91,35 @@ class Contacts(models.Model):
         verbose_name='названиеназвание'
     )
 
+    def __str__(self):
+        return f'{self.pk} {self.name}'
+
     class Meta:
         verbose_name = 'название'
         verbose_name_plural = 'названия'
         ordering = ('name',)
 
+
+class Version(models.Model):
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+        verbose_name='Продукт',
+        **NULLABLE
+    )
+    version_number = models.CharField(
+        max_length=150,
+        verbose_name='номер версии')
+    version_name = models.CharField(
+        max_length=150,
+        verbose_name='название версии')
+    version_sing = models.BooleanField(
+        default=False,
+        verbose_name='признак текущей версии')
+
     def __str__(self):
-        return f'{self.pk} {self.name}'
+        return f'{self.product} Версия:{self.version_name}'
+
+    class Meta:
+        verbose_name = 'Версия_продукт'
+        verbose_name_plural = 'Версия_продукты'
