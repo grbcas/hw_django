@@ -36,7 +36,7 @@ class ProductForm(StyleFormMixin, forms.ModelForm):
         return self.cleaned_data.get('description')
 
 
-class VersionForm(forms.ModelForm):
+class VersionForm(StyleFormMixin, forms.ModelForm):
     class Meta:
         model = Version
         fields = '__all__'

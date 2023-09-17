@@ -15,7 +15,6 @@ COUNT_LATEST_PRODUCTS = 5
 
 def contacts(request):
     context = {
-        'contacts': Contacts.objects.get(pk=1),
         'title': 'contacts'
     }
     if request.method == 'POST':
@@ -29,7 +28,6 @@ def contacts(request):
 class ProductCreateView(CreateView):
     model = Product
     form_class = ProductForm
-    # fields = ('name', 'description', 'category', 'image', 'price', 'create_date', 'is_published',)
     success_url = reverse_lazy('catalog:index')
 
     def form_valid(self, form):
@@ -64,7 +62,6 @@ class ProductDetailView(DetailView):
 class ProductUpdateView(UpdateView):
     model = Product
     form_class = ProductForm
-    # fields = ('name', 'description', 'category', 'image', 'price', 'modify_date', 'is_published', )
     success_url = reverse_lazy('catalog:index')
 
     def get_context_data(self, **kwargs):
@@ -104,7 +101,7 @@ class ProductDeleteView(DeleteView):
 
 def category(request):
     context = {
-        'name': category.objects.get(pk=1),
+        # 'name': category.objects.get(object.pk),
         'title': 'category'
     }
 
