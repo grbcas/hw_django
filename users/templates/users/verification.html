@@ -12,6 +12,7 @@
             <div class="card mb-4 box-shadow">
                 <div class="card-header">
                     <form action="" method="post">
+                        {{ user_email }}
                         {% csrf_token %}
                         {{ form.as_p }}
                         <input type="submit" value="Submit">

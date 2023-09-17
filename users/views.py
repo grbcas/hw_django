@@ -27,11 +27,12 @@ class RegisterView(CreateView):
             new_user = form.save(commit=False)
             new_user.is_active = False
             new_user.set_unusable_password()
+            new_user.save()
 
             # Send an email to the user with the token:
+
             # current_site = get_current_site(request)
             # print('current_site', current_site)
-            new_user.save()
 
             verification_key = urlsafe_base64_encode(force_bytes(new_user.pk))
             # verification_key = new_user.pk
@@ -61,17 +62,18 @@ def verification(request):
     template = 'users/verification.html'
     verification_key = int(urlsafe_base64_decode(key_data).decode())
     print(key_data, '=', verification_key)
+    user = User.objects.get(pk=verification_key)
 
     if request.method == 'POST':
         form = VerificationForm(request.POST)  # or None)
         if form.is_valid():
-            user = User.objects.get(pk=verification_key)
+            # user = User.objects.get(pk=verification_key)
             user.is_verified = True
             user.is_active = True
             user.save()
             return redirect(reverse('catalog:index'))
     form = VerificationForm(request.POST or None)
-    context = {'form': form}
+    context = {'form': form, 'user_email': user.email}
     return render(request, template, context)
 
 
