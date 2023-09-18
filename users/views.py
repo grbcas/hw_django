@@ -1,7 +1,12 @@
 import os
 
-from django.contrib.sites.shortcuts import get_current_site
-from django.http import request
+from django.contrib.auth.views import (PasswordResetDoneView as BasePasswordResetDoneView,
+                                       PasswordResetView as BasePasswordResetView,
+                                       PasswordResetConfirmView as BasePasswordResetConfirmView,
+                                       PasswordResetCompleteView as BasePasswordResetCompleteView)
+
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.views import PasswordChangeView
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.utils.encoding import force_bytes
@@ -48,15 +53,6 @@ class RegisterView(CreateView):
         return super().form_valid(form)
 
 
-class ProfileView(UpdateView):
-    model = User
-    form_class = UserProfileForm
-    success_url = reverse_lazy('users:profile')
-
-    def get_object(self, queryset=None):
-        return self.request.user
-
-
 def verification(request):
     key_data = request.GET.get('verification_key')
     template = 'users/verification.html'
@@ -77,17 +73,40 @@ def verification(request):
     return render(request, template, context)
 
 
-# class VerificationView(TemplateView):
-#     template_name = 'users/verification.html'
+class ProfileView(UpdateView):
+    model = User
+    form_class = UserProfileForm
+    success_url = reverse_lazy('users:profile')
 
-#     model = User
-#     template_name = 'users/verification.html'
-#     success_url = reverse_lazy('catalog:index')
-#     context_object_name = 'pk'
-#
-#     # queryset = User.objects.get(verification_key=4444)
-#
-#     verification_key = request.parse_header_parameters(['verification_key'])
-#
-#     usr = User.objects.get(verification_key=verification_key)
-#     usr.is_active = True
+    def get_object(self, queryset=None):
+        return self.request.user
+
+
+class PasswordView(PasswordChangeView):
+    model = User
+    form_class = PasswordChangeForm
+    success_url = reverse_lazy('users:profile')
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+
+class PasswordResetView(BasePasswordResetView):
+    template_name = 'users/password_reset_form.html'
+    email_template_name = 'users/password_reset_email.html'
+    from_email = settings.DEFAULT_FROM_EMAIL
+    success_url = reverse_lazy('users:password_reset_done')
+
+
+class PasswordResetDoneView(BasePasswordResetDoneView):
+    template_name = 'users/password_reset_done.html'
+
+
+class PasswordResetConfirmView(BasePasswordResetConfirmView):
+    template_name = 'users/password_reset_confirm.html'
+    success_url = reverse_lazy('users:password_reset_complete')
+
+
+class PasswordResetCompleteView(BasePasswordResetCompleteView):
+    template_name = 'users/password_reset_complete.html'
+    success_url = reverse_lazy('users:login')

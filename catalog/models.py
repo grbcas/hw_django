@@ -1,6 +1,8 @@
 # Create your models here.
+from users.models import User
 from django.db import models
 from django.utils import timezone
+
 
 NULLABLE = {'null': True, 'blank': True}
 
@@ -75,6 +77,12 @@ class Product(models.Model):
         verbose_name='slug',
         **NULLABLE
         )
+    owner = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        verbose_name='Пользователь',
+        **NULLABLE
+    )
 
     def __str__(self):
         return f'{self.pk} {self.name} {self.price} {self.category} {self.is_published}'

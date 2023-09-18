@@ -9,6 +9,9 @@
                 <form method="post" action="" class="form-floating" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form.as_p }}
+
+                    <a class="button" href="{% url 'users:password' %}" >Change Password</a>
+
                     <p></p>
                     <button type="submit" class="btn btn-warning">
                         Edit

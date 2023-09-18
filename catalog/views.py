@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms import inlineformset_factory
 from django.shortcuts import render
 from django.db.models import QuerySet
@@ -25,7 +26,7 @@ def contacts(request):
     return render(request, 'catalog/contacts.html', context)
 
 
-class ProductCreateView(CreateView):
+class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:index')
@@ -34,6 +35,8 @@ class ProductCreateView(CreateView):
         if form.is_valid():
             new_entry = form.save(commit=False)
             new_entry.slug = slugify(new_entry.name)
+
+            new_entry.owner = self.request.user
             new_entry.save()
             return super().form_valid(form)
 
@@ -59,7 +62,7 @@ class ProductDetailView(DetailView):
         return self.object
 
 
-class ProductUpdateView(UpdateView):
+class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:index')
@@ -74,15 +77,6 @@ class ProductUpdateView(UpdateView):
         context_data['formset'] = formset
         return context_data
 
-    # def form_valid(self, form):
-    #     if form.is_valid():
-    #         new_entry = form.save(commit=False)
-    #         new_entry.slug = slugify(new_entry.name)
-    #         new_entry.save()
-    #         return super().form_valid(form)
-    #
-    #     return super().form_valid(form)
-
     def form_valid(self, form):
         context_data = self.get_context_data()
         formset = context_data['formset']
@@ -94,7 +88,7 @@ class ProductUpdateView(UpdateView):
         return super().form_valid(form)
 
 
-class ProductDeleteView(DeleteView):
+class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
     success_url = reverse_lazy('catalog:index')
 
