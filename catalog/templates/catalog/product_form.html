@@ -15,19 +15,19 @@
                     {{ form.as_p }}
                     <button type="submit" class="btn btn-warning">
                         {% if object %}
-                        Изменить
+                        Сохранить
                         {% else %}
                         Создать
                         {% endif %}
                     </button>
                     {% if object %}
                     <a href="{% url 'catalog:delete' object.pk %}" type="button" class="btn btn-danger">Удалить</a>
-                        {% endif %}
-                        <a href="{% url 'catalog:index' %}" class="btn btn-success confirm-update">Отмена</a>
+                    {% endif %}
+                    <a href="{% url 'catalog:index' %}" class="btn btn-success confirm-update">Отмена</a>
                 </form>
-                
-                <img src="{{object.image.url}}">img</img>
-
+                {% if object %}
+                <img src="{% mediapath object %}" class="img" alt="Изображение продукта">
+                {%endif%}
             </div>
         </div>
     </div>
@@ -35,6 +35,6 @@
         <div class="body">
             {{ formset.form }}
         </div>
-</div>
+    </div>
 
-{% endblock %}
+    {% endblock %}

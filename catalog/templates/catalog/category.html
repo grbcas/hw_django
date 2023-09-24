@@ -7,13 +7,14 @@
             <h1>{{ title }}</h1>
         </div>
     </div>
-<br>
-<br>
+    <br>
+    <br>
     <!-- Карточки продуктов -->
-<div class="row">
-{% for product in product_list %}
-{% include 'catalog/includes/product_card.html' %}
-{% endfor %}
-</div>
+    <div class="row">
+        {% for category in objects_list %}
+                        <h5 class="card-title">{{ category.name }}</h5>
+                <p class="card-text">{{ category.description }}</p>
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}

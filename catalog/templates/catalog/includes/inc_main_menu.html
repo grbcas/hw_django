@@ -34,12 +34,14 @@
               <a class="nav-link" href="{% url 'users:login' %}">Login</a>
               {% endif %}
             </li>
+              {% if not user.is_authenticated %}
             <li class="nav-item active">
               <a class="nav-link" href="{% url 'users:register' %}">Register</a>
             </li>
             <li class="nav-item active">
               <a class="nav-link" href="{% url 'users:password_reset' %}">ResetPSWD</a>
             </li>
+               {%endif%}
           </ul>
 
         </div>

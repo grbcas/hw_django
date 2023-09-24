@@ -7,6 +7,7 @@ from django.contrib.auth.views import (PasswordResetDoneView as BasePasswordRese
 
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.views import PasswordChangeView
+from django.contrib.sites.shortcuts import get_current_site
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.utils.encoding import force_bytes
@@ -36,16 +37,17 @@ class RegisterView(CreateView):
 
             # Send an email to the user with the token:
 
-            # current_site = get_current_site(request)
-            # print('current_site', current_site)
+            current_site = get_current_site(self.request)
+            print('current_site', current_site)
 
             verification_key = urlsafe_base64_encode(force_bytes(new_user.pk))
-            # verification_key = new_user.pk
+
             print('RegisterView: verification_key', verification_key, 'new_user.pk', new_user.pk)
+            url = f'http://{current_site}/users/verification?verification_key={verification_key}\n'
+
             send_mail(
                 subject='Верификация почты',
-                message=f'перейдите по ссылке: '
-                        f'http://127.0.0.1:8000/users/verification?verification_key={verification_key}\n ',
+                message=f'перейдите по ссылке: {url}',
                 from_email=settings.DEFAULT_FROM_EMAIL,
                 recipient_list=[new_user.email]
             )

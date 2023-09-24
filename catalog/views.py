@@ -1,15 +1,19 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.cache import cache
 from django.forms import inlineformset_factory
 from django.shortcuts import render
 from django.db.models import QuerySet
 from django.urls import reverse_lazy, reverse
 from pytils.translit import slugify
 
+from catalog import services
 from catalog.forms import ProductForm, VersionForm
 from catalog.models import Product, Category, Contacts, Version
 from django.views.generic import TemplateView, ListView, CreateView, DetailView, UpdateView, DeleteView
 
 # Create your views here.
+from config import settings
 
 COUNT_LATEST_PRODUCTS = 5
 
@@ -93,9 +97,13 @@ class ProductDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('catalog:index')
 
 
+@login_required
 def category(request):
+
+    category_list = services.get_categories()
+
     context = {
-        # 'name': category.objects.get(object.pk),
+        'objects_list': category_list,
         'title': 'category'
     }
 

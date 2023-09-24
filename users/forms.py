@@ -26,9 +26,9 @@ class UserProfileForm(UserChangeForm):
 
 class VerificationForm(UserChangeForm):
 
+    password = forms.CharField(label='reset', max_length=256, widget=forms.HiddenInput(), required=False)
+
     class Meta:
         model = User
         fields = ("is_verified",)
-
-    # password = forms.CharField(label='reset', max_length=256, widget=forms.HiddenInput())
 
